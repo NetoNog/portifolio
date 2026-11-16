@@ -1,31 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { WhatsappIcon } from "@/components/brand-icons";
 import { navegacao, perfil } from "@/lib/data";
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
 
   return (
-    <header className="relative z-[100] flex items-center justify-between">
-      <Link href="/" className="flex items-center gap-3" aria-label={`${perfil.nome}, página inicial`}>
-        <span className="flex size-10 items-center justify-center rounded-xl border border-primary/60 bg-primary/10 text-base font-bold text-white shadow-[0_0_12px_color-mix(in_srgb,var(--primary)_35%,transparent)]">
+    <header className="relative z-[100] flex items-center justify-between gap-4">
+      <Link
+        href="/"
+        className="flex min-h-11 items-center gap-3"
+        aria-label={`${perfil.nome}, página inicial`}
+      >
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-primary/60 bg-primary/10 text-base font-bold text-white shadow-[0_0_12px_color-mix(in_srgb,var(--primary)_35%,transparent)]">
           JN
         </span>
-        <span className="text-lg font-semibold tracking-tight text-white md:text-xl">{perfil.nome}</span>
+        <span className="hidden text-lg font-semibold tracking-tight text-white min-[360px]:inline md:text-xl">
+          {perfil.nome}
+        </span>
       </Link>
 
+      {/* Desktop: links no topo. No celular a navegação fica na barra inferior. */}
       <nav aria-label="Navegação principal" className="hidden md:block">
         <ul className="flex gap-10">
           {navegacao.map((item) => {
@@ -48,37 +46,16 @@ export function SiteHeader() {
         </ul>
       </nav>
 
-      <button
-        type="button"
-        onClick={() => setMenuOpen((open) => !open)}
-        aria-expanded={menuOpen}
-        aria-controls="menu-mobile"
-        aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-        className="relative z-[110] flex size-10 items-center justify-center text-white md:hidden"
+      {/* Celular: atalho direto para o contato, sempre visível. */}
+      <a
+        href={perfil.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors active:bg-emerald-400 md:hidden"
       >
-        {menuOpen ? <X className="size-7" /> : <Menu className="size-7" />}
-      </button>
-
-      <div
-        id="menu-mobile"
-        className={`fixed inset-0 z-[90] flex flex-col items-center justify-center bg-background transition-all duration-300 md:hidden ${
-          menuOpen ? "visible opacity-100" : "invisible opacity-0"
-        }`}
-      >
-        <ul className="flex flex-col gap-8 text-center">
-          {navegacao.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className={`text-3xl font-bold ${pathname === item.href ? "text-primary" : "text-white"}`}
-              >
-                {item.rotulo}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <WhatsappIcon className="size-4" />
+        Orçamento
+      </a>
     </header>
   );
 }

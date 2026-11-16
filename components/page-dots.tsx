@@ -8,7 +8,7 @@ export function PageDots() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Páginas" className="relative z-50 mt-auto flex justify-center gap-4 pt-10">
+    <nav aria-label="Páginas" className="relative z-50 mt-auto hidden justify-center gap-4 pt-10 md:flex">
       {navegacao.map((item) => {
         const ativo = pathname === item.href;
         return (

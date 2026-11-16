@@ -17,12 +17,12 @@ export default function Home() {
           <span className="text-zinc-300">Automações</span>
         </h1>
 
-        <p className="mx-auto max-w-lg text-lg text-zinc-400 md:mx-0 md:text-xl">{perfil.resumo}</p>
+        <p className="mx-auto max-w-lg text-lg text-zinc-300 md:mx-0 md:text-xl md:text-zinc-400">{perfil.resumo}</p>
 
-        <div className="flex flex-col items-center gap-3 sm:flex-row md:items-start">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
           <Link
             href="/projetos"
-            className="inline-flex rounded-full border border-primary px-10 py-3.5 text-lg font-semibold text-zinc-200 transition-all duration-300 hover:bg-white hover:text-black"
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-primary px-10 text-lg font-semibold text-zinc-200 transition-all duration-300 hover:bg-white hover:text-black active:bg-white active:text-black"
           >
             Ver projetos
           </Link>
@@ -30,7 +30,7 @@ export default function Home() {
             href={perfil.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-lg font-semibold text-zinc-300 transition-colors hover:text-accent"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-zinc-700 px-6 text-lg font-semibold text-zinc-300 transition-colors hover:text-accent active:bg-white/5 sm:border-transparent"
           >
             <WhatsappIcon className="size-5" />
             Pedir orçamento

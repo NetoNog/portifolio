@@ -28,7 +28,7 @@ const REDES = [
 ];
 
 const pillClass =
-  "flex items-center justify-center gap-2 rounded-full border border-white px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:border-primary hover:bg-primary hover:text-primary-foreground md:px-8 md:py-4 md:text-lg";
+  "flex min-h-12 items-center justify-center gap-2 rounded-full border border-white px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:border-primary hover:bg-primary hover:text-primary-foreground active:border-primary active:bg-primary active:text-primary-foreground md:px-8 md:py-4 md:text-lg";
 
 export default function SobrePage() {
   return (
@@ -59,7 +59,7 @@ export default function SobrePage() {
               <span className="size-3 rounded-full bg-yellow-500" />
               <span className="size-3 rounded-full bg-green-500" />
             </div>
-            <pre className="whitespace-pre-wrap break-words font-mono text-[12px] leading-6 text-zinc-200 md:text-[15px] md:leading-7 xl:text-base">
+            <pre className="whitespace-pre-wrap break-words font-mono text-[13px] leading-6 text-zinc-200 md:text-[15px] md:leading-7 xl:text-base">
               <span className="text-sky-400">class</span> <span className="text-emerald-300">DevProfile</span> {"{\n"}
               <Campo nome="nome" valor={perfil.nome} />
               <Campo nome="cargo" valor={perfil.cargo} />
@@ -86,7 +86,7 @@ export default function SobrePage() {
                 <span>✕</span>
               </span>
             </div>
-            <div className="space-y-4 px-6 py-5 text-[15px] font-light leading-7 text-white md:text-base xl:text-lg">
+            <div className="space-y-4 px-5 py-5 text-base leading-7 text-zinc-100 md:px-6 md:font-light xl:text-lg">
               {sobre.map((paragrafo) => (
                 <p key={paragrafo}>{paragrafo}</p>
               ))}
@@ -94,7 +94,7 @@ export default function SobrePage() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.3} className="flex flex-col justify-center gap-6">
+        <Reveal delay={0.3} className="flex w-full flex-col justify-center gap-6 md:w-auto">
           <ul className="flex justify-center gap-4">
             {REDES.map(({ rotulo, href, Icon }) => (
               <li key={rotulo}>
@@ -103,7 +103,7 @@ export default function SobrePage() {
                   target={href.startsWith("mailto:") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   aria-label={rotulo}
-                  className="flex size-[70px] items-center justify-center rounded-2xl border border-zinc-700 bg-[#0d1512] text-white transition-all duration-300 hover:border-primary hover:text-accent"
+                  className="flex size-[70px] items-center justify-center rounded-2xl border border-zinc-700 bg-[#0d1512] text-white transition-all duration-300 hover:border-primary hover:text-accent active:border-primary active:text-accent"
                 >
                   <Icon className="size-8" />
                 </a>

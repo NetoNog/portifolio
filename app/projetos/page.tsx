@@ -18,8 +18,8 @@ export default async function ProjetosPage() {
   return (
     <div className="w-full max-w-6xl py-8">
       <Reveal>
-        <h1 className="text-4xl font-extrabold tracking-tighter text-white md:text-5xl">Projetos</h1>
-        <p className="mt-3 max-w-xl text-lg text-zinc-400">
+        <h1 className="text-[2.5rem] font-extrabold leading-tight tracking-tighter text-white md:text-5xl">Projetos</h1>
+        <p className="mt-3 max-w-xl text-base text-zinc-400 sm:text-lg">
           Trabalhos recentes com código aberto, atualizados direto do meu GitHub.
         </p>
       </Reveal>
@@ -33,7 +33,7 @@ export default async function ProjetosPage() {
             href={REPOSITORIOS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary px-8 py-3 font-semibold text-zinc-200 transition-all duration-300 hover:bg-white hover:text-black"
+            className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full border border-primary px-8 font-semibold text-zinc-200 transition-all duration-300 hover:bg-white hover:text-black"
           >
             Abrir GitHub
             <ArrowUpRight className="size-4" />
@@ -76,7 +76,7 @@ export default async function ProjetosPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Ver código de ${repo.name} no GitHub`}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-zinc-600 px-4 py-2 text-zinc-200 transition-colors hover:border-white hover:bg-white hover:text-black"
+                      className="inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full border border-zinc-600 px-5 text-zinc-200 transition-colors hover:border-white hover:bg-white hover:text-black active:bg-white active:text-black sm:flex-none"
                     >
                       Código
                     </a>
@@ -86,7 +86,7 @@ export default async function ProjetosPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Abrir demonstração de ${repo.name}`}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-emerald-400"
+                        className="inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-primary px-5 text-primary-foreground transition-colors hover:bg-emerald-400 active:bg-emerald-400 sm:flex-none"
                       >
                         Demonstração
                         <ExternalLink className="size-3.5" />
@@ -103,7 +103,7 @@ export default async function ProjetosPage() {
             href={REPOSITORIOS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-1.5 font-semibold text-accent hover:underline"
+            className="mt-8 inline-flex min-h-11 items-center gap-1.5 font-semibold text-accent hover:underline"
           >
             Ver todos os repositórios
             <ArrowUpRight className="size-4" />

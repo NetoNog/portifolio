@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Background } from "@/components/background";
+import { MobileTabBar } from "@/components/mobile-tab-bar";
 import { PageDots } from "@/components/page-dots";
 import { SiteHeader } from "@/components/site-header";
 import { SocialAside } from "@/components/social-aside";
@@ -63,6 +64,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0a110e",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -74,12 +76,13 @@ export default function RootLayout({
         className={`${fontBody.className} ${fontBody.variable} ${fontCode.variable} min-h-screen bg-background text-foreground antialiased selection:bg-primary/40`}
       >
         <Background />
-        <div className="relative flex min-h-[100dvh] flex-col p-6 md:p-10">
+        <div className="relative flex min-h-[100dvh] flex-col px-5 pb-28 pt-[max(1.25rem,env(safe-area-inset-top))] md:p-10">
           <SiteHeader />
           <SocialAside />
           <main className="relative z-10 flex flex-1 items-center justify-center">{children}</main>
           <PageDots />
         </div>
+        <MobileTabBar />
       </body>
     </html>
   );
