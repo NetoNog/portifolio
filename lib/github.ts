@@ -108,8 +108,33 @@ export async function fetchRepos(): Promise<Repo[]> {
       .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
       .slice(0, MAX_REPOS)
       .map(normalizarRepo);
-  } catch (error) {
+  } catch {
     return [];
+  }
+}
+
+/** Total de repositórios públicos do perfil, ou `null` se a API falhar. */
+export async function fetchTotalRepos(): Promise<number | null> {
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
+  try {
+    const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+      headers,
+      next: { revalidate: 3600 },
+    });
+    if (!response.ok) return null;
+
+    const data = (await response.json()) as { public_repos?: unknown };
+    return typeof data.public_repos === "number" ? data.public_repos : null;
+  } catch {
+    return null;
   }
 }
 

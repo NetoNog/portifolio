@@ -18,8 +18,8 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#0a110e",
-          color: "#f4f4f5",
+          background: "#0f172a",
+          color: "#f8fafc",
           fontFamily: "system-ui, -apple-system, sans-serif",
         }}
       >
@@ -29,8 +29,8 @@ export default function Image() {
               width: "44px",
               height: "44px",
               borderRadius: "10px",
-              background: "#10b981",
-              color: "#04130d",
+              background: "#38bdf8",
+              color: "#0f172a",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -56,13 +56,13 @@ export default function Image() {
           >
             Desenvolvedor Full Stack &amp; Automações
           </h1>
-          <p style={{ fontSize: "28px", color: "#a1a1aa", margin: 0 }}>
+          <p style={{ fontSize: "28px", color: "#b2b6bd", margin: 0 }}>
             Sites, sistemas, APIs e automações sob medida
           </p>
         </div>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          {["React", "Next.js", "Node.js", "TypeScript", "Automações"].map((tech) => (
+          {["React", "Next.js", "TypeScript", "PostgreSQL", "Automações"].map((tech) => (
             <span
               key={tech}
               style={{
@@ -70,8 +70,8 @@ export default function Image() {
                 fontWeight: 600,
                 padding: "8px 18px",
                 borderRadius: "8px",
-                border: "1px solid #3f3f46",
-                background: "#16201b",
+                border: "1px solid rgba(248,250,252,0.12)",
+                background: "rgba(56,189,248,0.1)", color: "#38bdf8",
               }}
             >
               {tech}

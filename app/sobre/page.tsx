@@ -1,129 +1,140 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Mail } from "lucide-react";
-import { GithubIcon, LinkedinIcon, WhatsappIcon } from "@/components/brand-icons";
-import { PageWatermark } from "@/components/page-watermark";
+import { WhatsappIcon } from "@/components/brand-icons";
+import { Container } from "@/components/container";
+import { CtaBand } from "@/components/cta-band";
+import { CtaLink } from "@/components/cta-link";
+import { ProcessSteps } from "@/components/process-steps";
 import { Reveal } from "@/components/reveal";
-import { perfil, servicos, sobre } from "@/lib/data";
+import { SectionHeading } from "@/components/section-heading";
+import { SocialLinks } from "@/components/social-links";
+import { perfil, servicos, sobre, tecnologias } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Sobre",
-  description: "Quem é José Nogueira, o que ele faz e como entrar em contato.",
+  description: "Quem é José Nogueira, como ele trabalha e como entrar em contato.",
 };
 
-function Campo({ nome, valor }: { nome: string; valor: string }) {
+/** Cartão em formato de código com o resumo profissional. */
+function DevProfileCard() {
+  const stack = tecnologias
+    .flatMap((grupo) => grupo.itens)
+    .slice(0, 6)
+    .map((tec) => tec.nome);
+
+  const campos: [string, string][] = [
+    ["nome", perfil.nome],
+    ["cargo", perfil.cargo],
+    ["atendimento", perfil.local],
+  ];
+
   return (
-    <>
-      {"  "}
-      <span className="text-sky-300">String {nome}</span> = <span className="text-amber-200">&quot;{valor}&quot;</span>;
-      {"\n"}
-    </>
+    <div className="rounded-2xl border border-subtle bg-background p-5 md:p-6">
+      <div aria-hidden className="mb-4 flex items-center gap-1.5">
+        <span className="size-2.5 rounded-full bg-foreground/25" />
+        <span className="size-2.5 rounded-full bg-foreground/25" />
+        <span className="size-2.5 rounded-full bg-foreground/25" />
+        <span className="ml-2 font-mono text-xs">dev-profile.ts</span>
+      </div>
+      <pre className="overflow-x-auto font-mono text-[13px] leading-7 md:text-sm">
+        <code>
+          <span className="text-foreground/60">const</span> <span className="text-foreground">dev</span> = {"{\n"}
+          {campos.map(([chave, valor]) => (
+            <span key={chave}>
+              {"  "}
+              {chave}: <span className="text-foreground">&quot;{valor}&quot;</span>,{"\n"}
+            </span>
+          ))}
+          {"  "}stack: [{"\n"}
+          {stack.map((nome) => (
+            <span key={nome}>
+              {"    "}
+              <span className="text-foreground">&quot;{nome}&quot;</span>,{"\n"}
+            </span>
+          ))}
+          {"  "}],{"\n"}
+          {"}"} <span className="text-foreground/60">as const</span>;
+        </code>
+      </pre>
+    </div>
   );
 }
 
-const REDES = [
-  { rotulo: "GitHub", href: perfil.github, Icon: GithubIcon },
-  { rotulo: "LinkedIn", href: perfil.linkedin, Icon: LinkedinIcon },
-  { rotulo: "E-mail", href: `mailto:${perfil.email}`, Icon: Mail },
-];
-
-const pillClass =
-  "flex min-h-12 items-center justify-center gap-2 rounded-full border border-white px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:scale-[1.03] hover:border-primary hover:bg-primary hover:text-primary-foreground active:border-primary active:bg-primary active:text-primary-foreground md:px-8 md:py-4 md:text-lg";
-
 export default function SobrePage() {
   return (
-    <div className="flex w-full max-w-6xl flex-col gap-6 py-8 md:gap-8">
-      <div className="flex flex-col items-center gap-6 md:flex-row md:items-stretch md:gap-8">
-        <Reveal>
-          <figure className="flex flex-col items-center">
-            <div className="relative h-[230px] w-[250px] overflow-hidden rounded-t-xl md:h-[220px] md:w-[200px]">
+    <>
+      <section aria-labelledby="sobre-titulo" className="pb-16 pt-14 md:pb-24 md:pt-20">
+        <Container className="grid gap-12 lg:grid-cols-[22rem_1fr] lg:gap-16">
+          <Reveal className="space-y-6">
+            <div className="relative mx-auto aspect-square w-full max-w-[22rem] overflow-hidden rounded-[2rem] border border-subtle bg-surface">
               <Image
                 src="/foto-perfil.jpg"
                 alt={`Foto de ${perfil.nome}`}
                 fill
                 priority
-                sizes="250px"
+                sizes="(max-width: 1024px) 90vw, 352px"
                 className="object-cover"
               />
             </div>
-            <figcaption className="w-full rounded-b-xl bg-primary py-1 text-center text-lg font-semibold text-primary-foreground">
+            <DevProfileCard />
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <p className="text-lg font-medium">Sobre mim</p>
+            <h1 id="sobre-titulo" className="mt-3 text-4xl font-semibold leading-tight md:text-5xl">
               {perfil.nome}
-            </figcaption>
-          </figure>
-        </Reveal>
+            </h1>
+            <p className="mt-2 text-lg font-medium">
+              {perfil.cargo} · {perfil.especialidade}
+            </p>
 
-        <Reveal delay={0.1} className="w-full md:flex-1">
-          <div className="h-full rounded-2xl border border-zinc-700 bg-[#0d1512] px-5 py-4 md:px-6">
-            <div className="mb-3 flex gap-2" aria-hidden>
-              <span className="size-3 rounded-full bg-red-500" />
-              <span className="size-3 rounded-full bg-yellow-500" />
-              <span className="size-3 rounded-full bg-green-500" />
-            </div>
-            <pre className="whitespace-pre-wrap break-words font-mono text-[13px] leading-6 text-zinc-200 md:text-[15px] md:leading-7 xl:text-base">
-              <span className="text-sky-400">class</span> <span className="text-emerald-300">DevProfile</span> {"{\n"}
-              <Campo nome="nome" valor={perfil.nome} />
-              <Campo nome="cargo" valor={perfil.cargo} />
-              <Campo nome="servicos" valor={servicos.join(", ")} />
-              <Campo nome="stack" valor="React, Next.js, TypeScript, Node.js, NestJS, n8n" />
-              <Campo nome="atendimento" valor="Remoto, para todo o Brasil" />
-              {"}"}
-            </pre>
-          </div>
-        </Reveal>
-      </div>
-
-      <div className="flex flex-col items-center gap-6 md:flex-row md:items-stretch md:gap-8">
-        <Reveal delay={0.2} className="w-full md:flex-1">
-          <div className="overflow-hidden rounded-2xl border border-zinc-700 bg-[#0d1512]">
-            <div className="flex items-center justify-between border-b border-zinc-700 bg-[#15201b] px-4 py-1.5" aria-hidden>
-              <span className="text-sm text-zinc-400">&lt; &gt;</span>
-              <span className="w-40 rounded-sm bg-white px-4 text-center text-xs text-black md:w-80">
-                josenogueira.dev/sobre
-              </span>
-              <span className="flex gap-3 text-zinc-400">
-                <span>—</span>
-                <span>□</span>
-                <span>✕</span>
-              </span>
-            </div>
-            <div className="space-y-4 px-5 py-5 text-base leading-7 text-zinc-100 md:px-6 md:font-light xl:text-lg">
+            <div className="mt-8 space-y-5 text-base leading-relaxed md:text-lg">
               {sobre.map((paragrafo) => (
                 <p key={paragrafo}>{paragrafo}</p>
               ))}
             </div>
-          </div>
-        </Reveal>
 
-        <Reveal delay={0.3} className="flex w-full flex-col justify-center gap-6 md:w-auto">
-          <ul className="flex justify-center gap-4">
-            {REDES.map(({ rotulo, href, Icon }) => (
-              <li key={rotulo}>
-                <a
-                  href={href}
-                  target={href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  aria-label={rotulo}
-                  className="flex size-[70px] items-center justify-center rounded-2xl border border-zinc-700 bg-[#0d1512] text-white transition-all duration-300 hover:border-primary hover:text-accent active:border-primary active:text-accent"
-                >
-                  <Icon className="size-8" />
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-col gap-2">
-            <a href={perfil.whatsappUrl} target="_blank" rel="noopener noreferrer" className={pillClass}>
-              <WhatsappIcon className="size-5" />
-              WhatsApp
-            </a>
-            <a href={`mailto:${perfil.email}`} className={pillClass}>
-              <Mail className="size-5" />
-              Enviar e-mail
-            </a>
-          </div>
-        </Reveal>
-      </div>
+            <h2 className="mt-12 text-2xl font-semibold">O que eu faço</h2>
+            <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+              {servicos.map((servico) => (
+                <li key={servico.titulo} className="rounded-xl border border-subtle bg-surface p-5">
+                  <h3 className="font-semibold">{servico.titulo}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed">{servico.descricao}</p>
+                </li>
+              ))}
+            </ul>
 
-      <PageWatermark>Sobre</PageWatermark>
-    </div>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <CtaLink href={perfil.whatsappUrl}>
+                <WhatsappIcon />
+                Conversar no WhatsApp
+              </CtaLink>
+              <CtaLink href={`mailto:${perfil.email}`} variant="outline">
+                <Mail aria-hidden />
+                Enviar e-mail
+              </CtaLink>
+            </div>
+            <SocialLinks className="mt-8" />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section aria-labelledby="processo-titulo" className="border-y border-subtle bg-surface py-20 md:py-28">
+        <Container>
+          <SectionHeading
+            id="processo-titulo"
+            eyebrow="Processo"
+            titulo="Como um projeto acontece"
+            descricao="Etapas claras, entregas parciais e nenhuma surpresa no fim."
+          />
+          <ProcessSteps />
+        </Container>
+      </section>
+
+      <Container className="py-20 md:py-28">
+        <CtaBand />
+      </Container>
+    </>
   );
 }

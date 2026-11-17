@@ -4,41 +4,79 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Design tokens — regra 60/30/10
+ *
+ *  60%  base      --background      #0F172A
+ *  30%  texto     --text-primary    #F8FAFC
+ *  10%  destaque  --accent          #38BDF8
+ *
+ * Tons derivados (calculados a partir das três cores base):
+ *  --surface         #0F172A misturado com 6% de branco   → #1D2537
+ *  --surface-hover   #0F172A misturado com 10% de branco  → #272E3F
+ *  --border          #F8FAFC a 12% sobre o fundo          → rgb(248 250 252 / 0.12)
+ *  --text-secondary  #F8FAFC a 70% sobre o fundo          → #B2B6BD (8.7:1 no fundo, 7.5:1 na superfície)
+ *  --accent-foreground  texto sobre o acento              → #0F172A (8.2:1)
+ *
+ * O acento é reservado para CTAs, estados de hover/focus e badges de stack.
+ */
+:root {
+  color-scheme: dark;
+
+  --background: #0f172a;
+  --surface: #1d2537;
+  --surface-hover: #272e3f;
+  --border: rgb(248 250 252 / 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #b2b6bd;
+  --accent: #38bdf8;
+  --accent-foreground: #0f172a;
+
+  /* Aliases shadcn (base-nova) apontando para os tokens acima. */
+  --foreground: var(--text-primary);
+  --card: var(--surface);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-foreground);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface);
+  --muted-foreground: var(--text-secondary);
+  --destructive: #f87171;
+  --input: var(--border);
+  --ring: var(--accent);
+  --radius: 0.75rem;
+}
+
 @theme inline {
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-code), ui-monospace, monospace;
 
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-subtle: var(--border);
+  --color-foreground: var(--text-primary);
+  --color-muted-foreground: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-muted: var(--muted);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,47 +86,42 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ── Tema: grafite esverdeado com acento esmeralda ── */
-:root {
-  color-scheme: dark;
-  --background: #0a110e;
-  --foreground: #f4f4f5;
-  --card: #111915;
-  --card-foreground: #f4f4f5;
-  --popover: #111915;
-  --popover-foreground: #f4f4f5;
-  --primary: #10b981;
-  --primary-foreground: #04130d;
-  --secondary: #16201b;
-  --secondary-foreground: #f4f4f5;
-  --muted: #16201b;
-  --muted-foreground: #a1a1aa;
-  --accent: #6ee7b7;
-  --accent-foreground: #0a110e;
-  --destructive: #ef4444;
-  --border: #3f3f46;
-  --input: #3f3f46;
-  --ring: #34d399;
-  --radius: 1rem;
-}
-
 @layer base {
   * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
+    @apply border-subtle outline-ring/50;
   }
   html {
+    scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-muted-foreground;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-foreground text-balance;
   }
   a,
   button {
     touch-action: manipulation;
   }
   :focus-visible {
-    outline: 2px solid var(--ring);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Texto vazado gigante atrás dos títulos de seção (referência do layout). */
+  .watermark {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border);
   }
 }
